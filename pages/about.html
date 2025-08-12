@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - My Web Server</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 20px; text-decoration: none; color: #007acc; }
+        nav a:hover { text-decoration: underline; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+    </nav>
+    
+    <h1>About This Server</h1>
+    <p>This is a custom HTTP server written in C++ using Windows Sockets (Winsock).</p>
+    
+    <h2>Technical Details:</h2>
+    <ul>
+        <li><strong>Language:</strong> C++</li>
+        <li><strong>Socket API:</strong> Winsock2</li>
+        <li><strong>Protocol:</strong> HTTP/1.1</li>
+        <li><strong>Architecture:</strong> Single-threaded with blocking I/O</li>
+    </ul>
+    
+    <h2>Components:</h2>
+    <ul>
+        <li><strong>Server.cpp:</strong> Main server loop and client handling</li>
+        <li><strong>httpDecoder.cpp:</strong> HTTP request/response parsing</li>
+        <li><strong>route.cpp:</strong> URL routing and response generation</li>
+        <li><strong>httpRequestResponse.h:</strong> Data structures and function declarations</li>
+    </ul>
+</body>
+</html>

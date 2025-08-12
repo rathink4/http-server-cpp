@@ -39,7 +39,7 @@ $ git clone https://github.com/rathink4/http-server-cpp.git
 
 - [ ] Document the README.md file.
 - [x] Implement TCP Server-Client connection.
-- [ ] Implement HTTP Server-Client connection.
+- [x] Implement HTTP Server-Client connection.
 - [ ] Add GET, POST, PUT, DELETE functionality in the web server.
 - [ ] Handle multiple client connections requests.
 
