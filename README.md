@@ -29,7 +29,7 @@ I wanted to build an HTTP Web server from scratch because:
 #### Step 1: Clone the Repo
 
 ```bash
-$ git clone https://www.github.com/alichtman/shallow-backup.git
+$ git clone https://github.com/rathink4/http-server-cpp.git
 
 ```
 
