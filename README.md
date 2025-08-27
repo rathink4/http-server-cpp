@@ -30,6 +30,39 @@ I wanted to build an HTTP Web server from scratch because:
 
 ```bash
 $ git clone https://github.com/rathink4/http-server-cpp.git
+$ cd http-server-cpp
+
+```
+
+#### Step 2: Build the Project
+
+Create the build directory and navigate into it:
+
+```bash
+$ mkdir build
+$ cd build
+
+```
+
+Run CMake to configure the project
+
+```bash
+$ cmake ..
+
+```
+
+Build the application
+
+```bash
+$ cmake --build .
+
+```
+
+#### Step 3: Run the server
+
+```bash
+$ cd bin
+$ ./HttpServerCpp
 
 ```
 
@@ -40,6 +73,7 @@ $ git clone https://github.com/rathink4/http-server-cpp.git
 - [ ] Document the README.md file.
 - [x] Implement TCP Server-Client connection.
 - [x] Implement HTTP Server-Client connection.
+- [x] Refactored code for extensibility
 - [ ] Add GET, POST, PUT, DELETE functionality in the web server.
 - [ ] Handle multiple client connections requests.
 
