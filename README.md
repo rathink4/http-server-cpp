@@ -25,7 +25,7 @@ I wanted to build an HTTP Web server from scratch because:
 
 
 ### Project Structure
-
+```shell
 http-server-cpp/
 ├── CMakeLists.txt
 ├── README.md
@@ -53,16 +53,16 @@ http-server-cpp/
     ├── index.html
     ├── about.html
     └── about.html
-
+```
 
 ### Prerequisites
 
 ---
 
-#### 1. Install CMake
-#### 2. Make sure you have Ws2_32.lib library files
+1. Install CMake
+2. Make sure you have Ws2_32.lib library files
 
----
+
 
 ### Installation
 
