@@ -6,6 +6,8 @@ An easy-to-understand HTTP Web Server for all the Windows users that want to wor
 # Contents
 
 - [Why?](#why)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
   <!-- - [Method 1: <a href="https://pypi.org/project/shallow-backup/" rel="nofollow">pipx</a>](#method-1-pipx)
   - [Method 2: Install From Source](#method-2-install-from-source) -->
@@ -21,6 +23,46 @@ I wanted to build an HTTP Web server from scratch because:
 - Didn't find a good reference project that did it for `Windows`.
 - Implement socket programming in `C++`.
 
+
+### Project Structure
+
+http-server-cpp/
+├── CMakeLists.txt
+├── README.md
+├── build/                          # Build output directory
+├── include/                        # Header files
+│   ├── http/                       # HTTP-related headers
+│   │   ├── HttpRequest.h
+│   │   ├── HttpResponse.h
+│   │   ├── HttpParser.h
+│   │   └── HttpFormatter.h
+│   └── server/                     # Server-related headers
+│   │   ├── Server.h
+│   │   └── Router.h
+├── src/                            # Source files
+│   ├── http/                       # HTTP implementation
+│   │   ├── HttpRequest.cpp
+│   │   ├── HttpResponse.cpp
+│   │   ├── HttpParser.cpp
+│   │   └── HttpFormatter.cpp
+│   ├── server/                     # Server implementation
+│   │   ├── Server.cpp
+│   │   └── Router.cpp
+│   └── main.cpp                    # Application entry point
+└── pages/                          # Static web content
+    ├── index.html
+    ├── about.html
+    └── about.html
+
+
+### Prerequisites
+
+---
+
+#### 1. Install CMake
+#### 2. Make sure you have Ws2_32.lib library files
+
+---
 
 ### Installation
 
