@@ -4,30 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - My Web Server</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        nav { margin-bottom: 20px; }
-        nav a { margin-right: 20px; text-decoration: none; color: #007acc; }
-        nav a:hover { text-decoration: underline; }
-        h1 { color: #333; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex space-x-8">
+                    <a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium text-gray-900">
+                        Home
+                    </a>
+                    <a href="/about" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-colors">
+                        About
+                    </a>
+                    <a href="/todo" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-colors">
+                        Todo
+                    </a>
+                </div>
+            </div>
+        </div>
     </nav>
-    
-    <h1>Welcome to My Web Server!</h1>
-    <p>This is the home page served by our custom C++ HTTP server.</p>
-    <p>The server is running on port 8080 and can handle multiple concurrent connections.</p>
-    
-    <h2>Features:</h2>
-    <ul>
-        <li>HTTP request parsing</li>
-        <li>Route handling</li>
-        <li>HTML file serving</li>
-        <li>Error handling (404, 500)</li>
-    </ul>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                Welcome to My Web Server!
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                This is the home page served by our custom C++ HTTP server running on port 8080.
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900">HTTP Request Parsing</h3>
+                </div>
+                <p class="text-gray-600">
+                    Robust parsing of HTTP requests with proper header and body handling.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900">Route Handling</h3>
+                </div>
+                <p class="text-gray-600">
+                    Flexible routing system for handling different URL patterns and HTTP methods.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900">HTML File Serving</h3>
+                </div>
+                <p class="text-gray-600">
+                    Efficient static file serving with proper MIME type detection.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900">Error Handling</h3>
+                </div>
+                <p class="text-gray-600">
+                    Comprehensive error handling with proper HTTP status codes (404, 500).
+                </p>
+            </div>
+        </div>
+
+        <!-- Server Status -->
+        <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-8 text-white text-center">
+            <h2 class="text-2xl font-bold mb-2">Server Status</h2>
+            <p class="text-blue-100 mb-4">Your C++ HTTP server is running smoothly</p>
+            <div class="inline-flex items-center bg-white bg-opacity-20 rounded-full px-4 py-2">
+                <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                <span class="text-sm font-medium">Active on Port 8080</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-500 text-sm">
+                Powered by Custom C++ HTTP Server with Winsock2
+            </p>
+        </div>
+    </footer>
 </body>
 </html>

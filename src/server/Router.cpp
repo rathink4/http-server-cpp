@@ -1,4 +1,6 @@
 #include "server/Router.h"
+#include "http/HttpRequest.h"
+#include "http/HttpResponse.h"
 #include <iostream>
 #include <windows.h>
 #include <fstream>
@@ -115,6 +117,10 @@ namespace HttpServer {
         HttpResponse aboutHandler(const HttpRequest& req) {
             return getHtmlPageResponse("about");
         }
+
+        HttpResponse todoHandler(const HttpRequest& req) {
+            return getHtmlPageResponse("todo");
+        }
     
     }
 
@@ -125,6 +131,8 @@ namespace HttpServer {
         router.get("/", homeHandler);
         router.get("/home", homeHandler);
         router.get("/about", aboutHandler);
+        router.get("/todo", todoHandler);
+
 
         return router;
     }

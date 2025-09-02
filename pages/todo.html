@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo - My Web Server</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex space-x-8">
+                    <a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-colors">
+                        Home
+                    </a>
+                    <a href="/about" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-colors">
+                        About
+                    </a>
+                    <a href="/todo" class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium text-gray-900">
+                        Todo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-green-600 to-blue-600 px-8 py-6">
+                <h1 class="text-3xl font-bold text-white">Todo Manager</h1>
+                <p class="text-green-100 mt-2">Test your C++ server's PUT and DELETE functionality</p>
+            </div>
+
+            <div class="px-8 py-6">
+                <!-- Add Todo Form -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Add New Todo</h2>
+                    <div class="flex gap-4">
+                        <input 
+                            type="text" 
+                            id="todoInput" 
+                            placeholder="Enter a new todo item..."
+                            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                        >
+                        <button 
+                            onclick="addTodo()" 
+                            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                        >
+                            Add Todo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Todo List -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold text-gray-900">Todo Items</h2>
+                        <span id="todoCount" class="text-sm text-gray-500">0 items</span>
+                    </div>
+                    <div id="todoList" class="space-y-3">
+                        <!-- Todo items will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- HTTP Method Test Buttons -->
+                <div class="border-t border-gray-200 pt-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">HTTP Method Testing</h2>
+                    <p class="text-gray-600 mb-6">Use these buttons to test different HTTP methods with your C++ server:</p>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <button 
+                            onclick="testMethod('GET')" 
+                            class="px-4 py-3 bg-green-100 text-green-800 rounded-lg hover:bg-green-200 transition-colors font-medium border border-green-300"
+                        >
+                            Test GET
+                        </button>
+                        <button 
+                            onclick="testMethod('POST')" 
+                            class="px-4 py-3 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-200 transition-colors font-medium border border-blue-300"
+                        >
+                            Test POST
+                        </button>
+                        <button 
+                            onclick="testMethod('PUT')" 
+                            class="px-4 py-3 bg-yellow-100 text-yellow-800 rounded-lg hover:bg-yellow-200 transition-colors font-medium border border-yellow-300"
+                        >
+                            Test PUT
+                        </button>
+                        <button 
+                            onclick="testMethod('DELETE')" 
+                            class="px-4 py-3 bg-red-100 text-red-800 rounded-lg hover:bg-red-200 transition-colors font-medium border border-red-300"
+                        >
+                            Test DELETE
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Response Log -->
+                <div class="border-t border-gray-200 pt-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold text-gray-900">Server Response Log</h2>
+                        <button 
+                            onclick="clearLog()" 
+                            class="text-sm text-gray-500 hover:text-gray-700 underline"
+                        >
+                            Clear Log
+                        </button>
+                    </div>
+                    <div 
+                        id="responseLog" 
+                        class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm h-64 overflow-y-auto"
+                    >
+                        <div class="text-gray-500">Server responses will appear here...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-500 text-sm">
+                Powered by Custom C++ HTTP Server with Winsock2
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let todos = [];
+        let todoIdCounter = 1;
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const todoText = input.value.trim();
+            
+            if (todoText === '') {
+                alert('Please enter a todo item');
+                return;
+            }
+
+            const todo = {
+                id: todoIdCounter++,
+                text: todoText,
+                completed: false,
+                createdAt: new Date().toLocaleString()
+            };
+
+            todos.push(todo);
+            input.value = '';
+            renderTodos();
+            
+            // Test POST request to server
+            testPostTodo(todo);
+        }
+
+        function toggleTodo(id) {
+            const todo = todos.find(t => t.id === id);
+            if (todo) {
+                todo.completed = !todo.completed;
+                renderTodos();
+                
+                // Test PUT request to server
+                testPutTodo(todo);
+            }
+        }
+
+        function deleteTodo(id) {
+            const index = todos.findIndex(t => t.id === id);
+            if (index !== -1) {
+                todos.splice(index, 1);
+                renderTodos();
+                
+                // Test DELETE request to server
+                testDeleteTodo(id);
+            }
+        }
+
+        function renderTodos() {
+            const todoList = document.getElementById('todoList');
+            const todoCount = document.getElementById('todoCount');
+            
+            todoCount.textContent = `${todos.length} item${todos.length !== 1 ? 's' : ''}`;
+
+            if (todos.length === 0) {
+                todoList.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        <p>No todo items yet. Add one above!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            todoList.innerHTML = todos.map(todo => `
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="flex items-center flex-1">
+                        <input 
+                            type="checkbox" 
+                            ${todo.completed ? 'checked' : ''} 
+                            onchange="toggleTodo(${todo.id})"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-3"
+                        >
+                        <div class="flex-1">
+                            <span class="${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'} font-medium">
+                                ${todo.text}
+                            </span>
+                            <div class="text-xs text-gray-400 mt-1">
+                                ID: ${todo.id} | Created: ${todo.createdAt}
+                            </div>
+                        </div>
+                    </div>
+                    <button 
+                        onclick="deleteTodo(${todo.id})" 
+                        class="ml-4 px-3 py-1 text-red-600 hover:bg-red-50 rounded transition-colors"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function logResponse(method, url, status, data) {
+            const log = document.getElementById('responseLog');
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'mb-2';
+            entry.innerHTML = `
+                <span class="text-blue-400">[${timestamp}]</span> 
+                <span class="text-yellow-400">${method}</span> 
+                <span class="text-white">${url}</span> 
+                <span class="${status >= 200 && status < 300 ? 'text-green-400' : 'text-red-400'}">${status}</span>
+                ${data ? `<br><span class="text-gray-300 ml-4">${JSON.stringify(data)}</span>` : ''}
+            `;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        async function testMethod(method) {
+            const url = `/api/todos${method === 'GET' ? '' : '/1'}`;
+            let options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            };
+
+            let testData = null;
+            if (method === 'POST') {
+                testData = { text: 'Test todo from POST', completed: false };
+                options.body = JSON.stringify(testData);
+            } else if (method === 'PUT') {
+                testData = { id: 1, text: 'Updated todo from PUT', completed: true };
+                options.body = JSON.stringify(testData);
+            }
+
+            try {
+                const response = await fetch(url, options);
+                const responseData = await response.text();
+                logResponse(method, url, response.status, responseData || null);
+            } catch (error) {
+                logResponse(method, url, 'ERROR', error.message);
+            }
+        }
+
+        async function testPostTodo(todo) {
+            try {
+                const response = await fetch('/api/todos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(todo)
+                });
+                const responseData = await response.text();
+                logResponse('POST', '/api/todos', response.status, responseData || null);
+            } catch (error) {
+                logResponse('POST', '/api/todos', 'ERROR', error.message);
+            }
+        }
+
+        async function testPutTodo(todo) {
+            try {
+                const response = await fetch(`/api/todos/${todo.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(todo)
+                });
+                const responseData = await response.text();
+                logResponse('PUT', `/api/todos/${todo.id}`, response.status, responseData || null);
+            } catch (error) {
+                logResponse('PUT', `/api/todos/${todo.id}`, 'ERROR', error.message);
+            }
+        }
+
+        async function testDeleteTodo(id) {
+            try {
+                const response = await fetch(`/api/todos/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                const responseData = await response.text();
+                logResponse('DELETE', `/api/todos/${id}`, response.status, responseData || null);
+            } catch (error) {
+                logResponse('DELETE', `/api/todos/${id}`, 'ERROR', error.message);
+            }
+        }
+
+        function clearLog() {
+            document.getElementById('responseLog').innerHTML = '<div class="text-gray-500">Server responses will appear here...</div>';
+        }
+
+        // Allow Enter key to add todo
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('todoInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTodo();
+                }
+            });
+            renderTodos();
+        });
+    </script>
+</body>
+</html>

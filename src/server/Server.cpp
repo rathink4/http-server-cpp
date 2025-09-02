@@ -80,12 +80,12 @@ namespace HttpServer {
                 continue;
             }
 
-            std::cout << "Server pinged.. Client connected!" << std::endl;
+            std::cout << "Server pinged!" << std::endl;
 
             handleClient(clientSocket);
             closesocket(clientSocket);
 
-            std::cout << "Client served.. Closed connection!" << std::endl;
+            std::cout << "Client served!" << std::endl;
 
         }
     }
