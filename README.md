@@ -5,6 +5,7 @@ An easy-to-understand HTTP Web Server for all the Windows users that want to wor
 
 <div align="center">
     <img height=640 width=1280 align="center" src="/images/home.JPG">
+    <br><br>
     <img height=640 width=1280 align="center" src="/images/about.JPG">
 </div>
 
