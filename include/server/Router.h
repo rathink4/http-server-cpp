@@ -18,6 +18,7 @@ namespace HttpServer {
             void addRoute(const std::string& method, const std::string& path, RouterHandler handler);
             void get(const std::string& path, RouterHandler handler);
             void post(const std::string& path, RouterHandler handler);
+            void put(const std::string& path, RouterHandler handler);
             void del(const std::string& path, RouterHandler handler);
 
             HttpResponse route(const HttpRequest& request);
@@ -32,6 +33,11 @@ namespace HttpServer {
             // Route handlers 
             RouterHandler notFoundHandler;
             RouterHandler errorHandler;
+
+            // API methods
+            HttpResponse handleCORS(const HttpRequest& req);
+            HttpResponse handleTodoApiReqs(const HttpRequest& req);
+            std::string extractIdFromPath(const std::string& path);
 
             // Utils
             std::string createRouteKey(const std::string& method, const std::string& path);

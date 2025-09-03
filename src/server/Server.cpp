@@ -197,10 +197,12 @@ namespace HttpServer {
 
     std::string Server::receiveRequest(SOCKET clientSocket) {
         std::string requestData;
-        char buffer[4096]; // Use a reasonably sized buffer
+        char buffer[4096];
         int bytesRead = 0;
+        int contentLength = 0;
+        bool headersComplete = false;
         
-        // Loop to receive data until the full request is received
+        // First, read the headers
         do {
             memset(buffer, 0, sizeof(buffer));
             bytesRead = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
@@ -208,22 +210,49 @@ namespace HttpServer {
             if (bytesRead > 0) {
                 requestData.append(buffer, bytesRead);
             } else if (bytesRead == 0) {
-                // Connection closed
-                break;
+                break; // Connection closed
             } else {
-                // An error occurred
                 std::cerr << "Server receive failed: " << WSAGetLastError() << std::endl;
                 return "";
             }
             
-            // This is a simple check for the end of headers.
-            // A more robust solution would check for Content-Length to read the body
-            if (requestData.find("\r\n\r\n") != std::string::npos) {
-                // Found the end of headers.
-                break;
+            // Check if we have complete headers
+            size_t headerEnd = requestData.find("\r\n\r\n");
+            if (headerEnd != std::string::npos && !headersComplete) {
+                headersComplete = true;
+                
+                // Extract Content-Length from headers
+                std::string headers = requestData.substr(0, headerEnd);
+                size_t contentLengthPos = headers.find("Content-Length:");
+                if (contentLengthPos != std::string::npos) {
+                    size_t valueStart = contentLengthPos + 15; // Length of "Content-Length:"
+                    size_t lineEnd = headers.find("\r\n", valueStart);
+                    if (lineEnd != std::string::npos) {
+                        std::string lengthStr = headers.substr(valueStart, lineEnd - valueStart);
+                        // Trim whitespace
+                        lengthStr.erase(0, lengthStr.find_first_not_of(" \t"));
+                        lengthStr.erase(lengthStr.find_last_not_of(" \t") + 1);
+                        contentLength = std::stoi(lengthStr);
+                        std::cout << "Content-Length: " << contentLength << std::endl;
+                    }
+                }
+                
+                // If no body expected, we're done
+                if (contentLength == 0) {
+                    break;
+                }
+                
+                // Check if we already have the complete body
+                size_t currentBodySize = requestData.length() - (headerEnd + 4);
+                if (currentBodySize >= contentLength) {
+                    break; // We have the complete request
+                }
             }
-        } while (bytesRead > 0);
+            
+        } while (bytesRead > 0 && (!headersComplete || 
+                (headersComplete && requestData.length() < requestData.find("\r\n\r\n") + 4 + contentLength)));
 
+        std::cout << "Received complete request (" << requestData.length() << " bytes)" << std::endl;
         return requestData;
 
     }

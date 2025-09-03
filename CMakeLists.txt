@@ -25,9 +25,14 @@ set(SERVER_SOURCES
     src/server/Server.cpp    
 )
 
+set(UTILS_SOURCES
+    src/utils/TodoStorage.cpp    
+)
+
 set(ALL_SOURCES
     ${HTTP_SOURCES}
     ${SERVER_SOURCES}
+    ${UTILS_SOURCES}
     src/main.cpp
 )
 

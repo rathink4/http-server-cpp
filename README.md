@@ -119,5 +119,5 @@ $ ./HttpServerCpp
 - [x] Implement TCP Server-Client connection.
 - [x] Implement HTTP Server-Client connection.
 - [x] Refactored code for extensibility
-- [ ] Add GET, POST, PUT, DELETE functionality in the web server.
+- [x] Add GET, POST, PUT, DELETE functionality in the web server.
 - [ ] Handle multiple client connections requests.
