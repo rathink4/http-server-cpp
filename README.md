@@ -42,6 +42,8 @@ http-server-cpp/
 │   └── server/                     # Server-related headers
 │   │   ├── Server.h
 │   │   └── Router.h
+|   └── utils/                      # Utility-related headers
+│       └── TodoStorage.h
 ├── src/                            # Source files
 │   ├── http/                       # HTTP implementation
 │   │   ├── HttpRequest.cpp
@@ -51,6 +53,8 @@ http-server-cpp/
 │   ├── server/                     # Server implementation
 │   │   ├── Server.cpp
 │   │   └── Router.cpp
+│   ├── utils/
+|   |   └── TodoStorage.cpp         # For CRUD
 │   └── main.cpp                    # Application entry point
 └── pages/                          # Static web content
     ├── index.html
@@ -63,7 +67,8 @@ http-server-cpp/
 ---
 
 1. Install CMake
-2. Make sure you have Ws2_32.lib library files
+2. Install C++ - [Reference Documentation](https://code.visualstudio.com/docs/languages/cpp)
+3. Make sure you have Ws2_32.lib library files
 
 
 
