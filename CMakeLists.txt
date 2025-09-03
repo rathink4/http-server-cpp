@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_EXPORT_COMPILE_COMMANDS)
 
 include_directories(include)
+include_directories(src)
 
 set(HTTP_SOURCES
     src/http/HttpRequest.cpp

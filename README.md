@@ -3,6 +3,12 @@
 An easy-to-understand HTTP Web Server for all the Windows users that want to work with C++ and learn about how to build an HTTP Web Server from scratch.
 
 
+<div align="center">
+    <img height=640 width=1280 align="center" src="/images/home.JPG">
+    <img height=640 width=1280 align="center" src="/images/about.JPG">
+</div>
+
+
 # Contents
 
 - [Why?](#why)
@@ -48,7 +54,7 @@ http-server-cpp/
 └── pages/                          # Static web content
     ├── index.html
     ├── about.html
-    └── about.html
+    └── todo.html
 ```
 
 ### Prerequisites
